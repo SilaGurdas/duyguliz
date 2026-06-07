@@ -499,12 +499,10 @@ with sekme1:
         if model is not None:
             st.info(f"💡 Kamera açıkken analizler her {KAYIT_ARALIGI_SANIYE} saniyede bir {kullanici_adi} kullanıcısı için kaydedilir.")
             webrtc_streamer(
-                key=f"duyguliz-stream-{kullanici_adi}",
+                key="duyguliz-stream",
                 video_processor_factory=lambda: DuyguAnalizMotoru(kullanici_adi),
-                rtc_configuration=RTC_CONFIGURATION,
-                media_stream_constraints={
-                    "audio": False
-                }
+                rtc_configuration={"iceServers": [{"urls": ["stun:stun.l.google.com:19302"]}]},
+                media_stream_constraints={"video": True, "audio": False}
             )
 
         else:
