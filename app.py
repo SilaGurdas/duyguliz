@@ -485,7 +485,7 @@ sekme1, sekme2, sekme3, sekme4 = st.tabs([
 with sekme1:
     sol, sag = st.columns([1.55, 1])
 
-        with sol:
+    with sol:
         st.markdown("""
         <div class="glass-card">
             <div class="section-title">🎥 Canlı Duygu Analizi</div>
