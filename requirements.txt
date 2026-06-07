@@ -1,0 +1,10 @@
+streamlit
+streamlit-webrtc
+tensorflow
+keras
+opencv-python-headless
+numpy
+pandas
+plotly
+av
+scikit-learn
