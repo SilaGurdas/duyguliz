@@ -485,7 +485,7 @@ sekme1, sekme2, sekme3, sekme4 = st.tabs([
 with sekme1:
     sol, sag = st.columns([1.55, 1])
 
-    with sol:
+        with sol:
         st.markdown("""
         <div class="glass-card">
             <div class="section-title">🎥 Canlı Duygu Analizi</div>
@@ -500,38 +500,39 @@ with sekme1:
             st.info(f"💡 Kamera açıkken analizler her {KAYIT_ARALIGI_SANIYE} saniyede bir {kullanici_adi} kullanıcısı için kaydedilir.")
 
             RTC_CONFIGURATION = {
-    "iceServers": [
-        {
-            "urls": [
-                "stun:stun.l.google.com:19302",
-                "stun:stun1.l.google.com:19302"
-            ]
-        },
-        {
-            "urls": [
-                "turn:openrelay.metered.ca:80",
-                "turn:openrelay.metered.ca:443",
-                "turn:openrelay.metered.ca:443?transport=tcp"
-            ],
-            "username": "openrelayproject",
-            "credential": "openrelayproject"
-        }
-    ]
-}
+                "iceServers": [
+                    {
+                        "urls": [
+                            "stun:stun.l.google.com:19302",
+                            "stun:stun1.l.google.com:19302"
+                        ]
+                    },
+                    {
+                        "urls": [
+                            "turn:openrelay.metered.ca:80",
+                            "turn:openrelay.metered.ca:443",
+                            "turn:openrelay.metered.ca:443?transport=tcp"
+                        ],
+                        "username": "openrelayproject",
+                        "credential": "openrelayproject"
+                    }
+                ]
+            }
 
-webrtc_streamer(
-    key=f"duyguliz-stream-{kullanici_adi}",
-    video_processor_factory=lambda: DuyguAnalizMotoru(kullanici_adi),
-    rtc_configuration=RTC_CONFIGURATION,
-    media_stream_constraints={
-        "video": {
-            "facingMode": "user",
-            "width": {"ideal": 640},
-            "height": {"ideal": 480}
-        },
-        "audio": False
-    }
-)
+            webrtc_streamer(
+                key=f"duyguliz-stream-{kullanici_adi}",
+                video_processor_factory=lambda: DuyguAnalizMotoru(kullanici_adi),
+                rtc_configuration=RTC_CONFIGURATION,
+                media_stream_constraints={
+                    "video": {
+                        "facingMode": "user",
+                        "width": {"ideal": 640},
+                        "height": {"ideal": 480}
+                    },
+                    "audio": False
+                }
+            )
+
         else:
             st.error("Sistem başlatılamadı. Model dosyası app.py ile aynı klasörde olmalı.")
 
