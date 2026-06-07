@@ -13,7 +13,7 @@ import plotly.express as px
 
 try:
     import av
-    from streamlit_webrtc import webrtc_streamer, VideoProcessorBase, WebRtcMode
+    from streamlit_webrtc import webrtc_streamer, VideoProcessorBase
 except ImportError:
     st.error("Eksik kütüphane: Lütfen terminale 'pip install av streamlit-webrtc' yazın.")
     st.stop()
@@ -500,21 +500,11 @@ with sekme1:
             st.info(f"💡 Kamera açıkken analizler her {KAYIT_ARALIGI_SANIYE} saniyede bir {kullanici_adi} kullanıcısı için kaydedilir.")
 
             webrtc_streamer(
-                key="duyguliz-stream",
-                mode=WebRtcMode.SENDRECV,
+                key=f"duyguliz-stream-{kullanici_adi}",
                 video_processor_factory=lambda: DuyguAnalizMotoru(kullanici_adi),
-                rtc_configuration={
-                    "iceServers": [
-                        {"urls": ["stun:stun.l.google.com:19302"]}
-                    ]
-                },
-                media_stream_constraints={
-                    "video": True,
-                    "audio": False
-                },
-                async_processing=True
+                rtc_configuration={"iceServers": [{"urls": ["stun:stun.l.google.com:19302"]}]},
+                media_stream_constraints={"video": True, "audio": False}
             )
-
         else:
             st.error("Sistem başlatılamadı. Model dosyası app.py ile aynı klasörde olmalı.")
 
